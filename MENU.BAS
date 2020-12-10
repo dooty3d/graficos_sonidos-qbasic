@@ -1,0 +1,358 @@
+DECLARE SUB BALL ()
+DECLARE SUB PIANO ()
+DECLARE SUB CUADROS ()
+DECLARE SUB COLORS ()
+DECLARE SUB DONKEY ()
+DECLARE SUB CALEIDO ()
+DECLARE SUB LINEAS ()
+DECLARE SUB MENU ()
+'MENU PRINCIPAL
+CLEAR : KEY OFF
+MENU
+
+SUB BALL
+   '************ PELOTA REBOTANDO *************
+   '
+   KEY OFF: CLS
+   DEFINT A-Z
+   RANDOMIZE TIMER
+   SCREEN 2
+   LINE (0, 0)-(639, 199), , B
+   LINE (10, 5)-(629, 194), , B
+   PAINT (5, 2)
+    X = 20 + INT(600 * RND): Y = 20 + INT(160 * RND)
+    DX = 5 * (INT(4 * RND) + 1): DY = 5 * (INT(4 * RND) + 1)
+    '
+    '*** COMIENZO DEL BUCLE*****
+    '
+    DO
+    CIRCLE (X, Y), 10, 0
+    PAINT (X, Y), 0
+    X1 = X + DX: Y1 = Y + DY
+    IF X1 < 21 THEN X1 = 21: DX = -DX: GOTO 200
+    IF X1 > 618 THEN X1 = 618: DX = -DX
+200 IF Y1 < 10 THEN Y1 = 10: DY = -DY: GOTO 220
+    IF Y1 > 189 THEN Y1 = 189: DY = -DY
+220 CIRCLE (X1, Y1), 10
+    PAINT (X1, Y1)
+    FOR V = 1 TO 5000: NEXT V
+
+    X = X1: Y = Y1
+    LOOP WHILE INKEY$ = ""
+MENU
+
+END SUB
+
+DEFSNG A-Z
+SUB CALEIDO
+KEY OFF: CLS : SCREEN 1
+DO
+U = INT(10 * RND): X = 9 - INT((U + 1) * RND): Y = 9 - INT((U + 1) * RND): C = INT(4 * RND)
+LINE (16 * X, 10 * Y)-(16 * X + 15, 10 * Y + 9), C, BF
+LINE (304 - 16 * X, 10 * Y)-(319 - 16 * X, 10 * Y + 9), C, BF
+LINE (16 * X, 190 - 10 * Y)-(16 * X + 15, 199 - 10 * Y), C, BF
+LINE (304 - 16 * X, 190 - 10 * Y)-(319 - 16 * X, 199 - 10 * Y), C, BF
+LINE (16 * Y, 10 * X)-(16 * Y + 15, 10 * X + 9), C, BF
+LINE (16 * Y, 190 - 10 * X)-(16 * Y + 15, 199 - 10 * X), C, BF
+LINE (304 - 16 * Y, 10 * X)-(319 - 16 * Y, 10 * X + 9), C, BF
+LINE (304 - 16 * Y, 190 - 10 * X)-(319 - 16 * Y, 199 - 10 * X), C, BF
+LOOP WHILE INKEY$ = ""
+MENU
+END SUB
+
+SUB COLORS
+    REM The IBM Personal Computer Colorbar
+    REM Version 1.10 (C)Copyright IBM Corp 1981, 1982
+    REM Licensed Material - Program Property of IBM
+    REM Author - Glenn Stuart Dardick
+    DEF SEG : POKE 106, 0
+    SAMPLE$ = "NO"
+    GOTO 1010
+     SAMPLE$ = "YES"
+1010 KEY OFF: SCREEN 0, 1: COLOR 15, 0: WIDTH 40: CLS : LOCATE 5, 19: PRINT "IBM"
+     LOCATE 7, 12, 0: PRINT "Personal Computer"
+     COLOR 10, 0: LOCATE 10, 9, 0: PRINT CHR$(213) + STRING$(21, 205) + CHR$(184)
+     LOCATE 11, 9, 0: PRINT CHR$(179) + "       COLORBAR      " + CHR$(179)
+     LOCATE 12, 9, 0: PRINT CHR$(179) + STRING$(21, 32) + CHR$(179)
+     LOCATE 13, 9, 0: PRINT CHR$(179) + "    Version 1.10     " + CHR$(179)
+     LOCATE 14, 9, 0: PRINT CHR$(212) + STRING$(21, 205) + CHR$(190)
+     COLOR 15, 0: LOCATE 17, 4, 0: PRINT "(C) Copyright IBM Corp 1981, 1982"
+     COLOR 14, 0: LOCATE 23, 7, 0: PRINT "Press space bar to continue"
+1100 IF INKEY$ <> "" THEN GOTO 1100
+1110 CMD$ = INKEY$
+     IF CMD$ = " " THEN GOTO 1150
+     IF CMD$ = CHR$(27) THEN GOTO 1490
+     GOTO 1110
+1150 COLOR 7, 0: CLS
+     KEY OFF
+     SCREEN 0, 1
+     WIDTH 40
+     COLOR 0, 0
+     CLS
+     FOR i = 0 TO 7
+     FOR J = 2 TO 11
+     LOCATE J, i * 5 + 1
+     COLOR i, i: PRINT CHR$(219); CHR$(219); CHR$(219);
+     NEXT J
+     NEXT i
+     LOCATE 12, 1
+     COLOR 15, 0
+     PRINT "blk  blue grn  cyan red  mag  brn white";
+     LOCATE 13, 1
+     COLOR 15, 0
+     PRINT "                                       ";
+     FOR i = 0 TO 7
+     FOR J = 14 TO 22
+     LOCATE J, i * 5 + 1
+     COLOR i + 8, i + 8: PRINT CHR$(219); CHR$(219); CHR$(219);
+     NEXT J
+     NEXT i
+     LOCATE 23, 1
+     COLOR 15, 0
+     PRINT "dark lght lght lght lght lght yel  int";
+     LOCATE 24, 1, 0
+     COLOR 15, 0
+     PRINT "grey blue grn  cyan red  mag      white";
+     LOCATE 1, 1
+     PRINT "Press ESC key to exit";
+1470 IF INKEY$ <> CHR$(27) THEN GOTO 1470
+     'DELETE
+1490 SCREEN 0
+     COLOR 7, 0
+     CLS
+     IF SAMPLE$ = "YES" OR SAMPLE$ = "NO" THEN MENU
+
+END SUB
+
+SUB CUADROS
+KEY OFF: CLS
+SCREEN 1: COLOR 0, 1: C = 3
+P = 0: Q = -45
+DO
+LINE (160 - 1.6 * P, 100 - P)-(160 + 1.6 * P, 100 + P), C, B
+IF 1 >= 0 THEN LINE (160 - 1.6 * Q, 100 - Q)-(160 + 1.6 * Q, 100 + Q), 0, B
+P = P + 5: IF P > 95 THEN P = 0: C = 1 + INT(3 * RND)
+Q = Q + 5: IF Q > 95 THEN Q = 0
+IF P = 0 OR Q = 0 THEN SOUND 32767, 10: SLEEP 1
+LOOP WHILE INKEY$ = ""
+MENU
+END SUB
+
+SUB DONKEY
+     KEY OFF: SCREEN 0, 1: COLOR 15, 0, 0: WIDTH 40: CLS : LOCATE 5, 19: PRINT "IBM"
+     LOCATE 7, 12, 0: PRINT "Personal Computer"
+     COLOR 10, 0: LOCATE 10, 9, 0: PRINT CHR$(213) + STRING$(21, 205) + CHR$(184)
+     LOCATE 11, 9, 0: PRINT CHR$(179) + "       DONKEY        " + CHR$(179)
+     LOCATE 12, 9, 0: PRINT CHR$(179) + STRING$(21, 32) + CHR$(179)
+     LOCATE 13, 9, 0: PRINT CHR$(179) + "    Version  1.10    " + CHR$(179)
+     LOCATE 14, 9, 0: PRINT CHR$(212) + STRING$(21, 205) + CHR$(190)
+     COLOR 15, 0: LOCATE 17, 4, 0: PRINT "(C)  Copyright IBM Corp 1981, 1982"
+     COLOR 14, 0: LOCATE 23, 7, 0: PRINT "Press space bar to continue"
+100 IF INKEY$ <> "" THEN GOTO 100
+110 CMD$ = INKEY$
+    IF CMD$ = "" THEN 110
+     IF CMD$ = CHR$(27) THEN GOTO 350
+     IF CMD$ = " " THEN GOTO 160
+     GOTO 110
+160 DEF SEG = 0
+     IF (PEEK(&H410) AND &H30) <> &H30 THEN DEF SEG : GOTO 300
+     WIDTH 80: CLS : LOCATE 3, 1
+     PRINT "HLOD IT!"
+     PRINT "YOU'RE NOT USING THE COLOR/GRAPHICS MONITOR ADAPTER!"
+     PRINT "THIS PROGRAM USES GRAPHICS AND REQUIRES THAT ADAPTER."
+     PRINT "PRESS TH SPACE BAR TO CONTINUE."
+     DEF SEG
+240 IF INKEY$ <> "" THEN GOTO 240
+250 CMD$ = INKEY$
+     IF CMD$ = "" THEN GOTO 250
+     IF CMD$ = CHR$(27) THEN GOTO 350
+     IF CMD$ = " " THEN GOTO 350
+     GOTO 250
+300 KEY OFF
+    ON ERROR GOTO 0 'VA EN EL CERO 340
+     PLAY "p16"
+     GOTO 370
+340 COLOR 4
+350 ON ERROR GOTO 0
+     SCREEN 0, 1: COLOR 7, 0, 0: CLS : MENU
+370 REM
+     COLOR 1
+     DEFINT A-Y
+     SCREEN 1, 0: COLOR 8, 1
+     DIM Q%(500)
+     DIM D1%(150), D2%(150), C1%(200), C2%(200)
+     DIM DNK%(300), CAR%(900)
+     GOSUB 910
+     GOSUB 760
+     CLS
+     DIM B%(300)
+     FOR i = 2 TO 300: B%(i) = -16384 + 192: NEXT
+     B%(0) = 2: B%(1) = 193
+500 REM
+     CX = 110: CLS
+     LINE (0, 0)-(305, 199), , B
+     LINE (6, 6)-(97, 195), 1, BF
+     LINE (183, 6)-(305, 195), 1, BF
+     LOCATE 3, 5: PRINT "Donkey"
+     LOCATE 3, 29: PRINT "Driver"
+     LOCATE 19, 25: PRINT "Press Space  ";
+     LOCATE 20, 25: PRINT "Bar to switch";
+     LOCATE 21, 25: PRINT "lanes        ";
+     LOCATE 23, 25: PRINT "Press ESC"; ";"
+     LOCATE 24, 25: PRINT "to exit      ";
+     FOR Y = 4 TO 199 STEP 20: LINE (140, Y)-(140, Y + 10): NEXT
+     CY = 105: CX = 105
+     LINE (100, 0)-(100, 199): LINE (180, 0)-(180, 199)
+650 LOCATE 5, 6: PRINT SD: LOCATE 5, 31: PRINT SM
+     CY = CY - 4: IF CY < 60 THEN 1200
+     PUT (CX, CY), CAR%, PRESET
+     DX = 105 + 42 * INT(RND * 2)
+     FOR Y = (RND * -4) * 8 TO 124 STEP 6
+     SOUND 20000, 1
+     A$ = INKEY$: IF A$ = CHR$(27) THEN 350 ELSE POKE 106, 0: IF LEN(A$) > 0 THEN LINE (CX, CY)-(CX + 28, CY + 44), 0, BF: CX = 252 - CX: PUT (CX, CY), CAR%, PRESET: SOUND 200, 1
+     IF Y >= 3 THEN PUT (DX, Y), DNK%, PSET
+     IF CX = DX AND Y + 25 >= CY THEN 1030
+     IF Y AND 3 THEN PUT (140, 6), B%
+     NEXT: LINE (DX, 124)-(DX + 32, 149), 0, BF: GOTO 650
+760 CLS
+     DRAW "S8C3"
+     DRAW "BM12,1r3m+1,3d2R1ND2u1r2d4l2u1l1"
+     DRAW "d7R1nd2u2r3d6l3u2l1d3m-1,1l3"
+     DRAW "m-1,-1u3l1d2l3u6r3d2nd2r1u7l1d1l2"
+     DRAW "u4r2d1nd2R1U2"
+     DRAW "M+1,-3"
+     DRAW "BD10D2R3U2M-1,-1L1M-1,1"
+     DRAW "BD3D1R1U1L1BR2R1D1L1U1"
+     DRAW "BD2BL2D1R1U1L1BR2R2R1D1L1U1"
+     DRAW "BD2BL2D1R1U1L1BR2R2R1D1L1U1"
+     LINE (0, 0)-(40, 60), , B
+     PAINT (1, 1)
+     GET (1, 1)-(29, 45), CAR%
+     RETURN
+910 CLS
+     DRAW "S08"
+     DRAW "BM14,18"
+     DRAW "M+2,-4R8M+1,-1U1M+1,+1M+2,-1"
+     DRAW "M-1,1M+1,3M-1,1M-1,-2M-1,2"
+     DRAW "D3L1U3M-1,1D2L1U2L3D2L1U2M-1,-1"
+     DRAW "D3L1U5M-2,3U1"
+     PAINT (21, 14), 3
+     PRESET (37, 10): PRESET (40, 10)
+     PRESET (37, 11): PRESET (40, 11)
+     GET (13, 0)-(45, 25), DNK%
+     RETURN
+1030 SD = SD + 1: LOCATE 14, 6: PRINT "BOOM!"
+     GET (DX, Y)-(DX + 16, Y + 25), D1%
+     D1X = DX: D1Y = Y: D2X = DX + 17
+     GET (DX + 17, Y)-(DX + 31, Y + 25), D2%
+     GET (CX, CY)-(CX + 14, CY + 44), C1%
+     GET (CX + 15, CY)-(CX + 28, CY + 44), C2%
+     C1X = CX: C1Y = CY: C2X = CX + 15
+     FOR P = 6 TO 0 STEP -1: Z = 1 / (2 ^ P): Z1 = 1 - Z
+     PUT (C1X, C1Y), C1%: PUT (C2X, C1Y), C2%
+     PUT (D1X, D1Y), D1%: PUT (D2X, D1Y), D2%
+     CIX = CX * Z1: D1Y = Y * Z1: C2X = C2X + (291 - C2X) * Z
+     D1X = DX * Z1: C1Y = C1Y + (155 - C1Y) * Z: D2X = D2X + (294 - D2X) * Z
+     PUT (C1X, C1Y), C1%: PUT (C2X, C1Y), C2%
+     PUT (D1X, D1Y), D1%: PUT (D2X, D1Y), D2%
+     SOUND 37 + RND * 200, 4: NEXT
+     FOR Y = 1 TO 2000: NEXT
+     CLS : GOTO 500
+1200 SM = SM + 1: LOCATE 7, 25: PRINT "Donkey loses!"
+     FOR Y = 1 TO 1000: NEXT
+     CLS : GOTO 500
+
+END SUB
+
+DEFSNG A-Y
+SUB LINEAS
+SCREEN 1
+DEFINT A-Z: KEY OFF
+DIM X1(150), Y1(150), X2(150), Y2(150)
+RANDOMIZE TIMER
+X1 = 120: Y1 = 70: X2 = 200: Y2 = 130
+CONTCOLOR = 0: CONTPUNT = 0: i = 1
+DO
+LINE (X1(i), Y1(i))-(X2(i), Y2(i)), 0
+IF CONTCOLOR = 0 THEN CONTCOLOR = 5 * (1 + INT(10 * RND)): CLR = 1 + INT(3 * RND)
+IF CONTPUNT = 0 THEN CONTPUNT = 5 * (1 + INT(10 * RND)): DX1 = INT(9 * RND) - 4: DY1 = INT(9 * RND) - 4: DX2 = INT(9 * RND) - 4: DY2 = INT(9 * RND) - 4
+X1 = X1 + DX1: IF X1 < 0 OR X1 > 319 THEN X1 = X1 - 2 * DX1
+SOUND 32767, 1
+Y1 = Y1 + DY1: IF Y1 < 0 OR Y1 > 199 THEN Y1 = Y1 - 2 * DY1
+X2 = X2 + DX2: IF X2 < 0 OR X2 > 310 THEN X2 = X2 - 2 * DX2
+Y2 = Y2 + DY2: IF Y2 < 0 OR Y2 > 199 THEN Y2 = Y2 - 2 * DY2
+LINE (X1, Y1)-(X2, Y2), CLR
+X1(i) = X1: Y1(i) = Y1: X2(i) = X2: Y2(i) = Y2
+i = i + 1
+IF i > 150 THEN i = 1
+CONTCOLOR = CONTCOLOR - 1: CONTPUNT = CONTPUNT - 1
+LOOP WHILE INKEY$ = ""
+MENU
+END SUB
+
+DEFSNG A-Z
+SUB MENU
+CLS : SCREEN 1: COLOR 0, 5: KEY OFF
+LINE (1, 1)-(320, 200), 2, BF
+LINE (30, 30)-(1, 1), 1
+LINE (290, 30)-(319, 1), 1
+LINE (30, 170)-(1, 199), 1
+LINE (290, 170)-(320, 200), 1
+LINE (30, 30)-(290, 30), 3
+LINE (290, 30)-(290, 170), 3
+LINE (30, 30)-(30, 170), 3
+LINE (30, 170)-(290, 170), 3
+PAINT (160, 100), 3
+LOCATE 2, 15: PRINT "MENU PRINCIPAL"
+LOCATE 5, 5: PRINT "1.-LINEAS"
+LOCATE 6, 5: PRINT "2.-PIANO"
+LOCATE 7, 5: PRINT "3.-CALEIDO"
+LOCATE 8, 5: PRINT "4.-DONKEY"
+LOCATE 9, 5: PRINT "5.-MUSIC"
+LOCATE 10, 5: PRINT "6.-PORTADA"
+LOCATE 11, 5: PRINT "7.-COLORS"
+LOCATE 12, 5: PRINT "8.-CUADROS"
+LOCATE 13, 5: PRINT "9.-COMPUTER"
+LOCATE 14, 5: PRINT "A.-BALL"
+LOCATE 23, 5: PRINT "CUAL ES TU ELECCION"
+CICLO: CMD$ = INKEY$
+     IF CMD$ = "" THEN GOTO CICLO
+     CLS
+     IF CMD$ = "1" THEN LINEAS
+     IF CMD$ = "2" THEN CHAIN "PIANO"
+     IF CMD$ = "3" THEN CALEIDO
+     IF CMD$ = "4" THEN DONKEY
+     IF CMD$ = "5" THEN CHAIN "MUSIC"
+     IF CMD$ = "6" THEN CHAIN "PORTADA"
+     IF CMD$ = "7" THEN COLORS
+     IF CMD$ = "8" THEN CUADROS
+     IF CMD$ = "9" THEN CHAIN "COMPUTER"
+     IF CMD$ = "A" OR CMD$ = "a" THEN BALL
+     SYSTEM
+END SUB
+
+SUB PIANO
+INICIO:      
+SCREEN 2: KEY OFF: CLS
+LOCATE 23, 7, 0: PRINT "toque las primeras letras del teclado PARA SALIR ESC"
+900 CMD$ = INKEY$
+     IF CMD$ = "" THEN 900
+     IF CMD$ = CHR$(81) OR CMD$ = CHR$(113) THEN PLAY "MLL20C": GOTO INICIO
+     IF CMD$ = CHR$(87) OR CMD$ = CHR$(119) THEN PLAY "MLL20D": GOTO INICIO
+     IF CMD$ = CHR$(69) OR CMD$ = CHR$(101) THEN PLAY "MLL20E": GOTO INICIO
+     IF CMD$ = CHR$(82) OR CMD$ = CHR$(114) THEN PLAY "MLL20F": GOTO INICIO
+     IF CMD$ = CHR$(84) OR CMD$ = CHR$(116) THEN PLAY "MLL20G": GOTO INICIO
+     IF CMD$ = CHR$(89) OR CMD$ = CHR$(121) THEN PLAY "MLL20A": GOTO INICIO
+     IF CMD$ = CHR$(85) OR CMD$ = CHR$(117) THEN PLAY "MLL20B": GOTO INICIO
+     IF CMD$ = "+" OR CMD$ = "+" THEN PLAY "<": GOTO INICIO
+     IF CMD$ = "-" OR CMD$ = "-" THEN PLAY ">": GOTO INICIO
+     IF CMD$ = "1" OR CMD$ = "1" THEN DO: FOR i% = 400 TO 1000 STEP 5: SOUND i%, .1: NEXT i%: LOOP WHILE INKEY$ = "": GOTO INICIO
+     IF CMD$ = "2" OR CMD$ = "2" THEN PLAY "MNC+D-E-F+G-A-B-B-": DO: FOR A% = 0 TO 3: PLAY "MN<C+D-E-F+G-A-B-B-": NEXT A%: PLAY "MN>>>>C+D-E-F+G-A-B-B-": LOOP WHILE INKEY$ = "": GOTO INICIO
+     IF CMD$ = "3" OR CMD$ = "3" THEN DO: SOUND 100, 4.55: SOUND 32767, 4.55: SOUND 300, 4.55: SOUND 32767, 4.55: SOUND 500, 6.83: SOUND 300, 6.83: SOUND 32767, 4.55: LOOP WHILE INKEY$ = "": GOTO INICIO
+     IF CMD$ = "4" THEN DO: SOUND 37 + RND * 200, 4: LOOP WHILE INKEY$ = "": GOTO INICIO
+     IF CMD$ = CHR$(27) THEN MENU
+     IF CMD$ = "*" THEN CLEAR
+     GOTO INICIO
+
+END SUB
+

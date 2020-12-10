@@ -1,0 +1,85 @@
+'VISUALISACION DE PORTADA
+DECLARE SUB PORTADA ()
+PORTADA
+'CONECTANDOSE A MENU PRINCIPAL
+CLS : CLEAR : CHAIN "MENU.BAS"
+
+SUB PORTADA
+REM *********PROGRAMA DE EFECTOS SONOROS Y GRAFICOS***********
+SCREEN 1
+LOCATE 5, 19: PRINT "PGS"
+LOCATE 7, 6: PRINT "Programas de graficos y sonidos"
+LOCATE 10, 10: PRINT CHR$(15) + STRING$(21, 15) + CHR$(15)
+LOCATE 11, 10: PRINT CHR$(15); "                     "; CHR$(15)
+LOCATE 12, 10: PRINT CHR$(15); "       Programa      "; CHR$(15)
+LOCATE 13, 10: PRINT CHR$(15); "                     "; CHR$(15)
+LOCATE 14, 10: PRINT CHR$(15); "          de         "; CHR$(15)
+LOCATE 15, 10: PRINT CHR$(15); "                     "; CHR$(15)
+LOCATE 16, 10: PRINT CHR$(15); "       Graficas      "; CHR$(15)
+LOCATE 17, 10: PRINT CHR$(15); "                     "; CHR$(15)
+LOCATE 18, 10: PRINT CHR$(15) + STRING$(21, 15) + CHR$(15)
+TEXT$ = "        ESTE PROGRAMA SE HIZO EN EL A¥O DE 1996          "
+FOR i = 1 TO 52
+LOCATE 23, 13: PRINT MID$(TEXT$, i, 16);
+FOR COUNT = 1 TO 200: NEXT COUNT
+LOCATE 23, 13: PRINT SPACE$(16);
+NEXT i
+LOCATE 23, 7: PRINT "Press any key to continue"
+PLAY "MBT160O1L8CDEDCDL4ECC"
+LET F = 0: DEFINT A-Z: V = 0
+WHILE INKEY$ <> "": WEND
+WHILE INKEY$ = ""
+3 IF F = 6 THEN 999
+IF F = 14 THEN 999
+COLOR F, 2
+999 IF F = 14 OR F = 6 THEN COLOR F, 3
+A$ = "*    *    *    *    *    *    *    *    *    *    *    *    *    *    *    *    *    "
+FOR A = 1 TO 5
+LOCATE 1, 1
+PRINT MID$(A$, A, 40);
+LOCATE 25, 1
+PRINT MID$(A$, 6 - A, 40);
+FOR B = 2 TO 21
+C = (A + B) MOD 5
+IF C = 1 THEN
+LOCATE B, 40
+PRINT "*";
+LOCATE 23 - B, 1
+PRINT "*";
+ELSE
+LOCATE B, 40
+PRINT " ";
+LOCATE 23 - B, 1
+PRINT " ";
+END IF
+NEXT B
+NEXT A
+V = V + 1
+IF V = 5 THEN 90
+IF V = 10 THEN 90
+IF V = 15 THEN 90
+IF V = 20 THEN 90
+IF V = 25 THEN 90
+IF V = 30 THEN 90
+IF V = 35 THEN 90
+IF V = 40 THEN 90
+IF V = 45 THEN 90
+IF V = 50 THEN 90
+IF V = 55 THEN 90
+IF V = 60 THEN 90
+IF V = 65 THEN 90
+IF V = 70 THEN 90
+IF V = 75 THEN 90
+IF V = 80 THEN
+V = 0
+GOTO 90
+END IF
+WEND
+GOTO 6
+90 IF F = 16 THEN F = F - 16
+F = F + 1
+V = V + 1
+GOTO 3
+6
+END SUB
+
